@@ -1,0 +1,13 @@
+* {
+    background-color: lightblue;
+}
+
+.class1{
+    color:red;
+}
+
+#showDialog{
+    color: red;
+}
+
+.small-text {font-size: 0.75rem; /* 75% of the root element's font size */}

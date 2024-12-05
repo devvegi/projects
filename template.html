@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><meta charset="UTF-8">
+        <title>Profile Card Component</title>
+        <script src="profile-card.js"></script>
+    </head>
+    <body>
+        <!-- Using the profile card custom element with slots -->
+        <profile-card>
+            <img slot="photo" src="example-user.png" alt="User Photo">
+            <span slot="name">Avanti Kantumuchu</span>
+            <span slot="position">Asst Professor</span>
+            <div slot="bio">I have around 5 years of Industrial experience</div>
+        </profile-card>
+        <hr>
+        <profile-card>
+            <img slot="photo" src="example-user.png" alt="User Photo">
+            <span slot="name">Anita</span>
+            <span slot="position">Asst Professor</span>
+            <div slot="bio">I have around 5 years of Industrial experience</div>
+        </profile-card>
+    </body>
+    </html>
+

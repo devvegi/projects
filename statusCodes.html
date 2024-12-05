@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Status Code Examples</title>
+    <style>
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTTP Status Code Examples</h1>
+    <button onclick="makeRequest(200)">200 - OK</button>
+    <button onclick="makeRequest(201)">201 - CREATED</button> 
+    <button onclick="makeRequest(204)">204 - NO CONTENT</button>
+    <button onclick="makeRequest(301)">301 - MOVED PERMANENTLY</button>
+    <button onclick="makeRequest(307)">307 - TEMPORARY REDIRECT</button>
+    <button onclick="makeRequest(308)">308 - PERMANENT REDIRECT</button>
+    <button onclick="makeRequest(400)">400 - BAD REQUEST</button>
+    <button onclick="makeRequest(401)">401 - UNAUTHORIZED</button>
+    <button onclick="makeRequest(403)">403 - FORBIDDEN</button>
+    <button onclick="makeRequest(404)">404 - NOT FOUND</button>
+    <button onclick="makeRequest(405)">405 - METHOD NOT ALLOWED</button>
+    <button onclick="makeRequest(418)">418 - I'M A TEAPOT</button>
+    <button onclick="makeRequest(429)">429 - TOO MANY REQUESTS</button>
+    <button onclick="makeRequest(500)">500 - INTERNAL SERVER ERROR</button>
+    <button onclick="makeRequest(501)">501 - NOT IMPLEMENTED</button>
+    <button onclick="makeRequest(503)">503 - SERVICE UNAVAILABLE</button> 
+    <pre id="output">Click a button to see the response...</pre>
+    <script>
+        const output = document.getElementById('output');
+
+        function makeRequest(statusCode) {
+            switch (statusCode) {
+                case 200:
+                    fetch('https://jsonplaceholder.typicode.com/posts/1')
+                        .then(handleResponse)
+                        .catch(handleError);
+                    break;
+
+                case 201:
+                    fetch('https://jsonplaceholder.typicode.com/posts', {
+                        method:'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body:JSON.stringify({title:'New Post', body:'This is a new post'})
+                    })
+                    .then(handleResponse)
+                    .catch(handleError);
+                    break;
+
+               case 204:
+                    fetch('https://jsonplaceholder.typicode.com/posts/1', {method:'DELETE'})
+                    .then(handleResponse)
+                    .catch(handleError);
+                    break;
+
+                // case 301:
+                //     output.textContent = '301 Moved Permanently: The resource has been moved to a new location.';
+                //     break;
+
+                // case 307:
+                //     output.textContent = '307 Temporary Redirect: The resource is temporarily moved.';
+                //     break;
+
+                // case 308:
+                //     output.textContent = '308 Permanent Redirect: The resource has been permanently moved.';
+                //     break;
+
+                case 400:
+                    fetch('https://jsonplaceholder.typicode.com/invalid-endpoint')
+                    .then(handleResponse)
+                    .catch(handleError);
+                    break;
+
+                // case 400:
+                //     fetch('https://jsonplaceholder.typicode.com/invalid-endpoint')
+                //         .then(handleResponse)
+                //         .catch(handleError);
+                //     break;
+
+                // case 401:
+                //     output.textContent = '401 Unauthorized: You need to be authorized to access this resource.';
+                //     break;
+
+                // case 403:
+                //     output.textContent = '403 Forbidden: You do not have permission to access this resource.';
+                //     break;
+
+                // case 404:
+                //     fetch('https://jsonplaceholder.typicode.com/unknown-endpoint')
+                //         .then(handleResponse)
+                //         .catch(handleError);
+                //     break;
+
+                case 405:
+                    fetch('https://jsonplaceholder.typicode.com/posts/1',{method:'PATCH'})
+                    .then(handleResponse)
+                    .catch(handleError);
+                    break;
+
+                // case 405:
+                //     fetch('https://jsonplaceholder.typicode.com/posts/1', { method: 'PATCH' })
+                //         .then(handleResponse)
+                //         .catch(handleError);
+                //     break;
+
+                // case 418:
+                //     output.textContent = "418 I'm a Teapot: This is a fun easter egg status code, not supported by many servers.";
+                //     break;
+
+                // case 429:
+                //     output.textContent = '429 Too Many Requests: You have exceeded the rate limit.';
+                //     break;
+
+                // case 500:
+                //     output.textContent = '500 Internal Server Error: The server encountered an error.';
+                //     break;
+
+                // case 501:
+                //     output.textContent = '501 Not Implemented: The server does not support the functionality required to fulfill the request.';
+                //     break;
+
+                // case 503:
+                //     output.textContent = '503 Service Unavailable: The server is currently unavailable.';
+                //     break;
+
+                default:
+                    output.textContent = 'Unknown status code';
+            }
+        }
+
+        function handleResponse(response) {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json().then(data => {
+                output.textContent = JSON.stringify(data, null, 2);
+            });
+        }
+
+        function handleError(error) {
+            output.textContent = `Error: ${error.message}`;
+        }
+    </script>
+</body>
+</html>

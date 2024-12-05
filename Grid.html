@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <style>
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+        "header header"
+        "sidebar content"
+        "footer footer";
+        gap: 10px;
+        height: 100vh;
+      }
+      .header {
+        grid-area: header;
+        background-color: lightblue;
+      }
+      .sidebar {
+        grid-area: sidebar;
+        background-color: lightcoral;
+      }
+      .content {
+        grid-area: content;
+        background-color:blanchedalmond;
+      }
+      .footer {
+        grid-area: footer;
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body class="transparent-background">
+    <p>This is a para</p>
+    <div class="container">
+      <div class="header">Header</div>
+      <div class="sidebar">sidebar</div>
+      <div class="content">Content</div>
+      <div class="footer">Footer</div>
+    </div>
+  </body>
+</html>

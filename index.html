@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Methods Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<h1>HTTP Methods with JSONPlaceholder API</h1>
+
+<button onclick="makeGetRequest()">GET</button>
+<button onclick="makePostRequest()">POST</button>
+<button onclick="makePutRequest()">PUT</button>
+<button onclick="makePatchRequest()">PATCH</button>
+<button onclick="makeDeleteRequest()">DELETE</button>
+<button onclick="makeHeadRequest()">HEAD</button>
+<button onclick="makeOptionsRequest()">OPTIONS</button>
+<button onclick="makeTraceRequest()">TRACE</button> 
+
+<pre id="output">Click a button to see the result here...</pre>
+
+<script>
+    const apiEndpoint = 'https://jsonplaceholder.typicode.com/users/1';  // Change the endpoint if necessary
+    const apiEndpoint2 = 'https://jsonplaceholder.typicode.com/users'; 
+    const output = document.getElementById("output");
+
+    // Function to display the result in the <pre> tag
+    function displayResult(result) {
+        output.textContent = JSON.stringify(result, null, 2);
+    }
+
+    // Get call
+    function makeGetRequest() {
+      fetch(apiEndpoint2)
+      .then(response => response.json())
+      .then(data => displayResult(data))
+      .catch(error =>displayResult({error: error.message}));
+    }
+
+    //Post call
+    function makePostRequest() {
+      fetch(apiEndpoint2, {
+        method: 'POST',
+        headers :{'Content-Type': 'application/json'},
+      })
+      .then(response=>response.json())
+      .then(data => displayResult(data))
+      .catch(error =>displayResult({error: error.message}));
+    }
+
+    //Put call
+    function makePutRequest() {
+      fetch(apiEndpoint, {
+        method: 'PUT',
+        headers :{'Content-Type': 'application/json'},
+        body:JSON.stringify({name:'Avanti',email:'avanti@example.com'})
+      })
+      .then(response=>response.json())
+      .then(data => displayResult(data))
+      .catch(error =>displayResult({error: error.message}));
+    }
+
+    //Patch call
+    function makePatchRequest() {
+      fetch(apiEndpoint, {
+        method: 'PATCH',
+        headers :{'Content-Type': 'application/json'},
+        body:JSON.stringify({email:'avantik@example.com', gender: 'female'})
+      })
+      .then(response=>response.json())
+      .then(data => displayResult(data))
+      .catch(error =>displayResult({error: error.message}));
+    }
+
+    //Delete call
+    function makeDeleteRequest() {
+      fetch(apiEndpoint, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if(response.ok) {
+          displayResult({message: 'resource deleted successfully'});
+        } else  {
+          displayResult({message: 'no data to delete'});
+        }
+      })
+      .catch(error =>displayResult({error: error.message}));
+    }
+
+    //
+</script>
+
+</body>
+</html>

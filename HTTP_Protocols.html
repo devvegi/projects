@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Methods Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<h1>HTTP Methods with JSONPlaceholder API</h1>
+<button onclick="makeGetRequest()">GET</button>
+<button onclick="makePostRequest()">POST</button>
+<button onclick="makePutRequest()">PUT</button>
+<button onclick="makePatchRequest()">PATCH</button>
+<button onclick="makeDeleteRequest()">DELETE</button>
+<button onclick="makeHeadRequest()">HEAD</button>
+<button onclick="makeOptionsRequest()">OPTIONS</button>
+<button onclick="makeTraceRequest()">TRACE</button>
+<pre id="output">Click a button to see the result here...</pre>
+<script>
+    const apiEndpoint = 'https://jsonplaceholder.typicode.com/posts/1';  // Change the endpoint if 
+
+    const output = document.getElementById("output");
+    // Function to display the result in the <pre> tag
+    function displayResult(result) {
+        output.textContent = JSON.stringify(result, null, 2);
+    }
+    // GET request
+    function makeGetRequest() {
+        fetch(apiEndpoint)
+            .then(response => response.json())
+            .then(data => displayResult(data))
+            .catch(error => displayResult({ error: error.message }));
+    }
+    // POST request
+    function makePostRequest() {
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: 'foo',
+                body: 'bar',
+                userId: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => displayResult(data))
+        .catch(error => displayResult({ error: error.message }));
+    }
+    // PUT request
+    function makePutRequest() {
+        fetch(apiEndpoint, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: 1,
+                title: 'updated title',
+                body: 'updated body',
+                userId: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => displayResult(data))
+        .catch(error => displayResult({ error: error.message }));
+    }
+    // PATCH request
+    function makePatchRequest() {
+        fetch(apiEndpoint, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: 'patched title'
+            })
+        })
+        .then(response => response.json())
+
+
+        .then(data => displayResult(data))
+        .catch(error => displayResult({ error: error.message }));
+    }
+    // DELETE request
+    function makeDeleteRequest() {
+        fetch(apiEndpoint, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                displayResult({ message: 'Resource deleted successfully' });
+            } else {
+                displayResult({ error: 'Failed to delete the resource' });
+            }
+        })
+        .catch(error => displayResult({ error: error.message }));
+    }
+    // Head request (checking meta data)
+    function makeHeadRequest() {
+        fetch(apiEndpoint, { method: 'HEAD' })
+            .then(response => {
+                let headers = '';
+                for (let pair of response.headers.entries()) {
+                    headers += `${pair[0]}: ${pair[1]}\n`;
+                }
+                displayResult(headers); // Display the headers in the <pre> tag
+            })
+            .catch(error => displayResult(`Error: ${error.message}`));
+    }
+    // OPTIONS request (checking allowed methods)
+    function makeOptionsRequest() {
+        fetch(apiEndpoint, {
+            method: 'OPTIONS'
+        })
+        .then(response => {
+            displayResult({ allowedMethods: response.headers.get('Allow') });
+        })
+        .catch(error => displayResult({ error: error.message }));
+    }
+    // TRACE request (NOTE: TRACE requests are not typically supported by most public APIs for security
+
+    // TRACE is generally disabled for security purposes, and not supported by JSONPlaceholder
+    function makeTraceRequest() {
+        fetch(apiEndpoint, {
+            method: 'TRACE'
+        })
+        .then(response => response.text())
+        .then(data => displayResult({ trace: data }))
+        .catch(error => displayResult({ error: error.message }));
+
+
+    }
+</script>
+</body>
+</html>

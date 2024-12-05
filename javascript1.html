@@ -1,0 +1,45 @@
+
+<html>
+    <body>
+        <h2>Let vs Var Example</h2>
+        <h2 id="varOutput"></h2>
+        <p id="letOutput"></p>
+        <h1 id="name"></h1>
+        <h1 id="title">Welcome</h1>
+        <button onClick=changeTitle()>Change</button>
+        <button onClick=testLet()>Click Me</button>
+    <script>
+        // function testVar() {
+        //     var x=1;
+        //     if(x) {
+        //         var x=2;
+        //         document.getElementById("varOutput").textContent="Inside var block:"+x;
+        //         console.log(x);
+        //     }
+        // }
+        // function testLet() {
+        //     let y=1;
+        //     if(true) {
+        //         let y=2;
+        //         document.getElementById("letOutput").textContent="Inside if block:"+y;
+        //     }
+        //     document.getElementById("letOutput").textContent="Inside let function:"+y;
+        // }
+        const person = {
+            name:'Alice',
+
+        greet:function() {
+            document.getElementById("name").textContent=`My name is ${this.name}`;
+        }
+    };
+    person.greet();
+    function changeTitle() {
+        const element = document.getElementById("title");
+        element.textContent="Hi";
+        element.style.color="red";
+    }
+    
+
+    </script>
+    </body>
+    </html>
